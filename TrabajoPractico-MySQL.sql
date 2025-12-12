@@ -23,6 +23,7 @@ CREATE TABLE  mascotas(
     fecha_nacimiento DATE,
     id_duenos INT,
    FOREIGN KEY (id_duenos) REFERENCES duenos(id)
+   
 );
 
 --Ejercicio 4 – Crear tabla veterinarios
@@ -79,4 +80,42 @@ VALUES
 ('2','2','Consulta por pérdida de apetito; se indica análisis básico.'),
 ('3','1','Revisión de rutina; todo dentro de parámetros normales.');
 
+--Ejercicio 7  Actualizar registros
 
+--1. Cambiar la dirección de un dueño (por ID o nombre).
+
+UPDATE duenos 
+SET direccion = "Mitre 980,Buenos Aires"
+WHERE id = 1 
+OR nombre = 'Laura';
+
+--2. Actualizar la especialidad de un veterinario (por ID o matrícula).
+
+UPDATE veterinarios
+SET especialidad = "Dermatologia veterinaria"
+WHERE id = 2
+OR matricula = 'VET67890';
+
+--3. Editar la descripción de un historial clínico (por ID).
+
+UPDATE historial_clinico
+SET descripcion = "Alergia"
+WHERE id = 2;
+
+--Ejercicio 8 – Eliminar registros
+
+
+SHOW CREATE TABLE historial_clinico --PARA VER LA CONSTRUCCION DE LA TABLA
+
+
+-- POR QUE INICIALMENTE NO CREE LA TABLA CON EL "ON DELETE CASCADE" , PRIMERO HAGO ESTO PARA QUE LUEGO AL ELIMINAR LA MASCOTA
+--SE ELIMINE SU HISTORIAL CLINICO 
+
+ALTER TABLE historial_clinico
+ADD CONSTRAINT fk_historial_clinico                
+FOREIGN KEY (id_mascota) REFERENCES mascotas(id)
+ON DELETE CASCADE;
+
+--ELIMINA MASCOTA 
+DELETE FROM mascotas
+WHERE id = 1;
