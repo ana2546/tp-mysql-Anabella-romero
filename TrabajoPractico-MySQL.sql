@@ -106,6 +106,10 @@ WHERE id = 2;
 
 
 SHOW CREATE TABLE historial_clinico --PARA VER LA CONSTRUCCION DE LA TABLA
+--ELIMINO LA FK ACTUAL YA QUE ESTA INCOMPLETA , LE FALTA EL ON CASCADE 
+
+ALTER TABLE historial_clinico
+DROP FOREIGN KEY historial_clinico_ibfk_1;
 
 
 -- POR QUE INICIALMENTE NO CREE LA TABLA CON EL "ON DELETE CASCADE" , PRIMERO HAGO ESTO PARA QUE LUEGO AL ELIMINAR LA MASCOTA
@@ -119,3 +123,44 @@ ON DELETE CASCADE;
 --ELIMINA MASCOTA 
 DELETE FROM mascotas
 WHERE id = 1;
+
+
+
+--Ejercicio 9 
+--Consulta que muestre:
+--● Nombre de la mascota
+--● Especie
+--● Nombre completo del dueño (nombre + apellido)
+
+SELECT 
+m.nombre AS nombre_masc ,
+m.especie AS especie_masc , 
+d.nombre AS nombre_dueno , 
+d.apellido AS apellido_dueno 
+FROM mascotas m 
+JOIN duenos d ON m.id_duenos=d.id;
+  
+
+--EJERCICIO 10
+
+--Consulta que muestre todas las entradas del historial clínico con:
+--● Nombre y especie de la mascota
+--● Nombre completo del dueño
+--● Nombre completo del veterinario
+--● Fecha de registro
+--● Descripción
+
+SELECT
+m.nombre AS nombre_masc,
+m.especie AS especie_masc,
+d.nombre AS nombre_dueno,
+d.apellido AS apellido_dueno,
+v.nombre AS vet_nombre,
+v.apellido AS vet_apellido,
+h.descripcion AS desc_hist_clinico,
+h.fecha_registro
+
+FROM historial_clinico h
+LEFT JOIN mascotas m ON m.id = h.id_mascota
+LEFT JOIN duenos d ON d.id = m.id_duenos
+LEFT JOIN veterinarios v ON v.id=h.id_veterinario
