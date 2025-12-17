@@ -46,8 +46,9 @@ CREATE TABLE
         FOREIGN KEY (id_mascota) REFERENCES mascotas (id),
         FOREIGN KEY (id_veterinario) REFERENCES veterinarios (id)
     )
-    --Ejercicio 6 – Insertar registros
-    --insertar 3 dueños con información completa
+
+ --Ejercicio 6 – Insertar registros
+ --insertar 3 dueños con información completa
 INSERT INTO
     duenos (nombre, apellido, direccion, telefono)
 VALUES
@@ -83,28 +84,15 @@ INSERT INTO
     veterinarios (nombre, apellido, matricula, especialidad)
 VALUES
     ('Sofia', 'Ramirez', 'VET12345', 'clinica general'),
-    (
-        'Federico',
-        'Molina',
-        'VET67890',
-        'cirugia animal'
-    );
+    ( 'Federico', 'Molina','VET67890','cirugia animal');
 
 --insertar 3 registros de historial clínico
 INSERT INTO
     historial_clinico (id_mascota, id_veterinario, descripcion)
 VALUES
     ('1', '2', 'Control general y vacunación anual'),
-    (
-        '2',
-        '2',
-        'Consulta por pérdida de apetito; se indica análisis básico.'
-    ),
-    (
-        '3',
-        '1',
-        'Revisión de rutina; todo dentro de parámetros normales.'
-    );
+    ('2','2','Consulta por pérdida de apetito; se indica análisis básico.'),
+    ('3','1','Revisión de rutina; todo dentro de parámetros normales.');
 
 --Ejercicio 7  Actualizar registros
 --1. Cambiar la dirección de un dueño (por ID o nombre).
@@ -121,7 +109,7 @@ SET
     especialidad = "Dermatologia veterinaria"
 WHERE
     id = 2
-    OR matricula = 'VET67890';
+ OR matricula = 'VET67890';
 
 --3. Editar la descripción de un historial clínico (por ID).
 UPDATE historial_clinico
@@ -131,16 +119,19 @@ WHERE
     id = 2;
 
 --Ejercicio 8 – Eliminar registros
-SHOW
-CREATE TABLE historial_clinico --PARA VER LA CONSTRUCCION DE LA TABLA
-    
-    --ELIMINO LA FK ACTUAL YA QUE ESTA INCOMPLETA , LE FALTA EL ON CASCADE 
+
+SHOW CREATE TABLE historial_clinico       --PARA VER LA CONSTRUCCION DE LA TABLA
+                                          --ELIMINO LA FK ACTUAL YA QUE ESTA INCOMPLETA , LE FALTA EL ON CASCADE 
+
+
 ALTER TABLE historial_clinico
 DROP FOREIGN KEY historial_clinico_ibfk_1;
 
 -- POR QUE INICIALMENTE NO CREE LA TABLA CON EL "ON DELETE CASCADE" , PRIMERO HAGO ESTO PARA QUE LUEGO AL ELIMINAR LA MASCOTA
 --SE ELIMINE SU HISTORIAL CLINICO 
-ALTER TABLE historial_clinico ADD CONSTRAINT fk_historial_clinico FOREIGN KEY (id_mascota) REFERENCES mascotas (id) ON DELETE CASCADE;
+ALTER TABLE historial_clinico 
+ADD CONSTRAINT fk_historial_clinico 
+FOREIGN KEY (id_mascota) REFERENCES mascotas (id) ON DELETE CASCADE;
 
 --ELIMINA MASCOTA 
 DELETE FROM mascotas
@@ -175,10 +166,12 @@ SELECT
     d.apellido AS apellido_dueno,
     v.nombre AS vet_nombre,
     v.apellido AS vet_apellido,
-    h.descripcion AS desc_hist_clinico,
+    h.descripcion AS descripcion_hist_clinico,
     h.fecha_registro
 FROM
     historial_clinico h
     LEFT JOIN mascotas m ON m.id = h.id_mascota
     LEFT JOIN duenos d ON d.id = m.id_duenos
     LEFT JOIN veterinarios v ON v.id = h.id_veterinario
+ORDER BY
+    h.fecha_registro DESC;
