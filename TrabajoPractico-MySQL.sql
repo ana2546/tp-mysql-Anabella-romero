@@ -5,6 +5,7 @@ CREATE DATABASE veterinaria_patitas_felices;
 USE veterinaria_patitas_felices;
 
 --Ejercicio 2  Crear tabla duenos
+
 CREATE TABLE
     duenos (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -15,6 +16,7 @@ CREATE TABLE
     );
 
 --Ejercicio 3  Crear tabla mascotas
+
 CREATE TABLE
     mascotas (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +28,7 @@ CREATE TABLE
     );
 
 --Ejercicio 4 – Crear tabla veterinarios
+
 CREATE TABLE
     veterinarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,7 +39,8 @@ CREATE TABLE
     );
 
 --Ejercicio 5 – Crear tabla historial_clinico
-CREATE TABLE
+
+CREATE TABLE   
     historial_clinico (
         id INT PRIMARY KEY AUTO_INCREMENT,
         id_mascota INT,
@@ -44,32 +48,19 @@ CREATE TABLE
         fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
         descripcion VARCHAR(250) NOT NULL,
         FOREIGN KEY (id_mascota) REFERENCES mascotas (id),
-        FOREIGN KEY (id_veterinario) REFERENCES veterinarios (id)
-    )
+        FOREIGN KEY (id_veterinario) REFERENCES veterinarios (id) 
+        )
 
- --Ejercicio 6 – Insertar registros
- --insertar 3 dueños con información completa
+--Ejercicio 6 – Insertar registros
+ 
+--insertar 3 dueños con información completa
+
 INSERT INTO
     duenos (nombre, apellido, direccion, telefono)
 VALUES
-    (
-        'Laura',
-        'Gómez',
-        'Av. Belgrano 123, Buenos Aires',
-        '1123456789'
-    ),
-    (
-        'Martín',
-        'Pereira',
-        'Calle San Juan 456, Córdoba',
-        '1139876543'
-    ),
-    (
-        'Daniela',
-        'Torres',
-        'Ruta 8 km 32, San Isidro',
-        '1145567788'
-    );
+    ('Laura','Gómez','Av. Belgrano 123, Buenos Aires', '1123456789'),
+    ('Martín','Pereira','Calle San Juan 456, Córdoba','1139876543'),
+    ('Daniela','Torres', 'Ruta 8 km 32, San Isidro', '1145567788');
 
 --insertar 3 mascotas, cada una asociada a un dueño
 INSERT INTO
