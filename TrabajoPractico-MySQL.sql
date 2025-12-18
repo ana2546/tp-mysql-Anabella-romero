@@ -137,8 +137,7 @@ WHERE
 SELECT
     m.nombre AS nombre_masc,
     m.especie AS especie_masc,
-    d.nombre AS nombre_dueno,
-    d.apellido AS apellido_dueno
+     CONCAT(d.nombre," ",d.apellido) AS dueno
 FROM
     mascotas m
     JOIN duenos d ON m.id_duenos = d.id;
@@ -153,10 +152,8 @@ FROM
 SELECT
     m.nombre AS nombre_masc,
     m.especie AS especie_masc,
-    d.nombre AS nombre_dueno,
-    d.apellido AS apellido_dueno,
-    v.nombre AS vet_nombre,
-    v.apellido AS vet_apellido,
+    CONCAT(d.nombre," ",d.apellido) AS dueno,
+    CONCAT(v.nombre," ",v.apellido) AS veterinario,
     h.descripcion AS descripcion_hist_clinico,
     h.fecha_registro
 FROM
