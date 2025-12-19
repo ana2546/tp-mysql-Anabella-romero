@@ -1,165 +1,187 @@
---Ejercicio 1  Crear Base de Datos
---Crear una base de datos llamada veterinaria_patitas_felices.
-CREATE DATABASE veterinaria_patitas_felices;
-
-USE veterinaria_patitas_felices;
-
---Ejercicio 2  Crear tabla duenos
-
-CREATE TABLE
-    duenos (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nombre VARCHAR(50) NOT NULL,
-        apellido VARCHAR(50) NOT NULL,
-        telefono VARCHAR(20) NOT NULL,
-        direccion VARCHAR(100)
-    );
-
---Ejercicio 3  Crear tabla mascotas
-
-CREATE TABLE
-    mascotas (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nombre VARCHAR(50) NOT NULL,
-        especie VARCHAR(30) NOT NULL,
-        fecha_nacimiento DATE,
-        id_duenos INT,
-        FOREIGN KEY (id_duenos) REFERENCES duenos (id)
-    );
-
---Ejercicio 4 – Crear tabla veterinarios
-
-CREATE TABLE
-    veterinarios (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nombre VARCHAR(50) NOT NULL,
-        apellido VARCHAR(50) NOT NULL,
-        matricula VARCHAR(20) UNIQUE NOT NULL,
-        especialidad VARCHAR(50) NOT NULL
-    );
-
---Ejercicio 5 – Crear tabla historial_clinico
-
-CREATE TABLE   
-    historial_clinico (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        id_mascota INT,
-        id_veterinario INT,
-        fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        descripcion VARCHAR(250) NOT NULL,
-        FOREIGN KEY (id_mascota) REFERENCES mascotas (id),
-        FOREIGN KEY (id_veterinario) REFERENCES veterinarios (id) 
-        )
-
---Ejercicio 6 – Insertar registros
- 
---insertar 3 dueños con información completa
-
-INSERT INTO
-    duenos (nombre, apellido, direccion, telefono)
-VALUES
-    ('Laura','Gómez','Av. Belgrano 123, Buenos Aires', '1123456789'),
-    ('Martín','Pereira','Calle San Juan 456, Córdoba','1139876543'),
-    ('Daniela','Torres', 'Ruta 8 km 32, San Isidro', '1145567788');
-
---insertar 3 mascotas, cada una asociada a un dueño
-INSERT INTO
-    mascotas (nombre, especie, fecha_nacimiento, id_duenos)
-VALUES
-    ('Luna', 'perro', '2019-05-10', '1'),
-    ('Max', 'gato', '2020-04-15', '2'),
-    ('Nube', 'conejo', '2022-03-05', '3');
-
---insertar 2 veterinarios con especialidades distintas
-INSERT INTO
-    veterinarios (nombre, apellido, matricula, especialidad)
-VALUES
-    ('Sofia', 'Ramirez', 'VET12345', 'clinica general'),
-    ( 'Federico', 'Molina','VET67890','cirugia animal');
-
---insertar 3 registros de historial clínico
-INSERT INTO
-    historial_clinico (id_mascota, id_veterinario, descripcion)
-VALUES
-    ('1', '2', 'Control general y vacunación anual'),
-    ('2','2','Consulta por pérdida de apetito; se indica análisis básico.'),
-    ('3','1','Revisión de rutina; todo dentro de parámetros normales.');
-
---Ejercicio 7  Actualizar registros
---1. Cambiar la dirección de un dueño (por ID o nombre).
-UPDATE duenos
+-- Ejercicio 1  Crear Base de Datos
+    -- Crear una base de datos llamada veterinaria_patitas_felices.
+CREATE DATABASE veterinaria_patitas_felices; USE
+    veterinaria_patitas_felices;
+    -- Ejercicio 2  Crear tabla duenos
+CREATE TABLE duenos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    direccion VARCHAR(100)
+);
+-- Ejercicio 3  Crear tabla mascotas
+CREATE TABLE mascotas(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    especie VARCHAR(30) NOT NULL,
+    fecha_nacimiento DATE,
+    id_duenos INT,
+    FOREIGN KEY(id_duenos) REFERENCES duenos(id)
+);
+-- Ejercicio 4 – Crear tabla veterinarios
+CREATE TABLE veterinarios(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    matricula VARCHAR(20) UNIQUE NOT NULL,
+    especialidad VARCHAR(50) NOT NULL
+);
+-- Ejercicio 5 – Crear tabla historial_clinico
+CREATE TABLE historial_clinico(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    id_mascota INT,
+    id_veterinario INT,
+    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    descripcion VARCHAR(250) NOT NULL,
+    FOREIGN KEY(id_mascota) REFERENCES mascotas(id),
+    FOREIGN KEY(id_veterinario) REFERENCES veterinarios(id)
+);
+-- Ejercicio 6 – Insertar registros
+-- insertar 3 dueños con información completa
+INSERT INTO duenos(
+    nombre,
+    apellido,
+    direccion,
+    telefono
+)
+VALUES(
+    'Laura',
+    'Gómez',
+    'Av. Belgrano 123, Buenos Aires',
+    '1123456789'
+),(
+    'Martín',
+    'Pereira',
+    'Calle San Juan 456, Córdoba',
+    '1139876543'
+),(
+    'Daniela',
+    'Torres',
+    'Ruta 8 km 32, San Isidro',
+    '1145567788'
+);
+-- insertar 3 mascotas, cada una asociada a un dueño
+INSERT INTO mascotas(
+    nombre,
+    especie,
+    fecha_nacimiento,
+    id_duenos
+)
+VALUES('Luna', 'perro', '2019-05-10', '1'),('Max', 'gato', '2020-04-15', '2'),('Nube', 'conejo', '2022-03-05', '3');
+-- insertar 2 veterinarios con especialidades distintas
+INSERT INTO veterinarios(
+    nombre,
+    apellido,
+    matricula,
+    especialidad
+)
+VALUES(
+    'Sofia',
+    'Ramirez',
+    'VET12345',
+    'clinica general'
+),(
+    'Federico',
+    'Molina',
+    'VET67890',
+    'cirugia animal'
+);
+-- insertar 3 registros de historial clínico
+INSERT INTO historial_clinico(
+    id_mascota,
+    id_veterinario,
+    descripcion
+)
+VALUES(
+    '1',
+    '2',
+    'Control general y vacunación anual'
+),(
+    '2',
+    '2',
+    'Consulta por pérdida de apetito; se indica análisis básico.'
+),(
+    '3',
+    '1',
+    'Revisión de rutina; todo dentro de parámetros normales.'
+);
+-- Ejercicio 7  Actualizar registros
+-- 1. Cambiar la dirección de un dueño (por ID o nombre).
+UPDATE
+    duenos
 SET
     direccion = "Mitre 980,Buenos Aires"
 WHERE
-    id = 1
-    OR nombre = 'Laura';
-
---2. Actualizar la especialidad de un veterinario (por ID o matrícula).
-UPDATE veterinarios
+    id = 1 OR nombre = 'Laura';
+    -- 2. Actualizar la especialidad de un veterinario (por ID o matrícula).
+UPDATE
+    veterinarios
 SET
     especialidad = "Dermatologia veterinaria"
 WHERE
-    id = 2
- OR matricula = 'VET67890';
-
---3. Editar la descripción de un historial clínico (por ID).
-UPDATE historial_clinico
+    id = 2 OR matricula = 'VET67890';
+    -- 3. Editar la descripción de un historial clínico (por ID).
+UPDATE
+    historial_clinico
 SET
     descripcion = "Alergia"
 WHERE
     id = 2;
-
---Ejercicio 8 – Eliminar registros
-
-SHOW CREATE TABLE historial_clinico       --PARA VER LA CONSTRUCCION DE LA TABLA
-                                          --ELIMINO LA FK ACTUAL YA QUE ESTA INCOMPLETA , LE FALTA EL ON CASCADE 
-
-
-ALTER TABLE historial_clinico
-DROP FOREIGN KEY historial_clinico_ibfk_1;
-
--- POR QUE INICIALMENTE NO CREE LA TABLA CON EL "ON DELETE CASCADE" , PRIMERO HAGO ESTO PARA QUE LUEGO AL ELIMINAR LA MASCOTA
---SE ELIMINE SU HISTORIAL CLINICO 
-ALTER TABLE historial_clinico 
-ADD CONSTRAINT fk_historial_clinico 
-FOREIGN KEY (id_mascota) REFERENCES mascotas (id) ON DELETE CASCADE;
-
---ELIMINA MASCOTA 
-DELETE FROM mascotas
+    -- Ejercicio 8 – Eliminar registros
+SHOW
+CREATE TABLE historial_clinico; -- PARA VER LA CONSTRUCCION DE LA TABLA
+-- ELIMINO LA FK ACTUAL YA QUE ESTA INCOMPLETA , LE FALTA EL ON CASCADE 
+ALTER TABLE
+    historial_clinico
+DROP FOREIGN KEY
+    historial_clinico_ibfk_1;
+    -- POR QUE INICIALMENTE NO CREE LA TABLA CON EL "ON DELETE CASCADE" , PRIMERO HAGO ESTO PARA QUE LUEGO AL ELIMINAR LA MASCOTA
+    -- SE ELIMINE SU HISTORIAL CLINICO 
+ALTER TABLE
+    historial_clinico ADD CONSTRAINT fk_historial_clinico FOREIGN KEY(id_mascota) REFERENCES mascotas(id) ON DELETE CASCADE;
+    -- ELIMINA MASCOTA 
+DELETE
+FROM
+    mascotas
 WHERE
     id = 1;
-
---Ejercicio 9 
---Consulta que muestre:
---● Nombre de la mascota
---● Especie
---● Nombre completo del dueño (nombre + apellido)
+    -- Ejercicio 9 
+    -- Consulta que muestre:
+    -- ● Nombre de la mascota
+    -- ● Especie
+    -- ● Nombre completo del dueño (nombre + apellido)
 SELECT
     m.nombre AS nombre_masc,
     m.especie AS especie_masc,
-     CONCAT(d.nombre," ",d.apellido) AS dueno
+    CONCAT(d.nombre, " ", d.apellido) AS dueno
 FROM
     mascotas m
-    JOIN duenos d ON m.id_duenos = d.id;
-
---EJERCICIO 10
---Consulta que muestre todas las entradas del historial clínico con:
---● Nombre y especie de la mascota
---● Nombre completo del dueño
---● Nombre completo del veterinario
---● Fecha de registro
---● Descripción
+JOIN duenos d ON
+    m.id_duenos = d.id;
+    -- EJERCICIO 10
+    -- Consulta que muestre todas las entradas del historial clínico con:
+    -- ● Nombre y especie de la mascota
+    -- ● Nombre completo del dueño
+    -- ● Nombre completo del veterinario
+    -- ● Fecha de registro
+    -- ● Descripción
 SELECT
     m.nombre AS nombre_masc,
     m.especie AS especie_masc,
-    CONCAT(d.nombre," ",d.apellido) AS dueno,
-    CONCAT(v.nombre," ",v.apellido) AS veterinario,
+    CONCAT(d.nombre, " ", d.apellido) AS dueno,
+    CONCAT(v.nombre, " ", v.apellido) AS veterinario,
     h.descripcion AS descripcion_hist_clinico,
     h.fecha_registro
 FROM
     historial_clinico h
-    LEFT JOIN mascotas m ON m.id = h.id_mascota
-    LEFT JOIN duenos d ON d.id = m.id_duenos
-    LEFT JOIN veterinarios v ON v.id = h.id_veterinario
+LEFT JOIN mascotas m ON
+    m.id = h.id_mascota
+LEFT JOIN duenos d ON
+    d.id = m.id_duenos
+LEFT JOIN veterinarios v ON
+    v.id = h.id_veterinario
 ORDER BY
-    h.fecha_registro DESC;
+    h.fecha_registro
+DESC
+    ;
